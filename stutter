@@ -1,0 +1,66 @@
+#include <iostream>
+using namespace std;
+struct ListNode
+{
+	int data;
+	ListNode* next;
+	ListNode(int v) {
+		data = v;
+		next = NULL;
+	}
+};
+
+void addNode(ListNode*& front, int v)
+{
+	ListNode* n = new ListNode(v);
+	if (front == NULL) {
+		front = n;
+		return;
+	}
+	ListNode* x = front;
+	while (x->next != NULL) {
+		x = x->next;
+	}
+	x->next = n;
+}
+
+void insertNode(ListNode* front, int x)
+{
+	if (front == NULL) {
+		return;
+	}
+	ListNode* y = new ListNode(x);
+	y->data = x;
+	y->next = front->next;
+	front->next = y;
+}
+
+void stutter(ListNode*& front)
+{
+	ListNode* n = front;
+	while (n != nullptr) {
+		int x = n->data;
+		insertNode(n, x);
+		n = n->next->next;
+	}
+}
+
+void printList(ListNode* x)
+{
+	while (x != nullptr){
+		cout << x->data << endl;
+		x = x->next;
+	}
+}
+
+int main()
+{
+	ListNode* front = NULL;
+	addNode(front, 1);
+	addNode(front, 8);
+	addNode(front, 19);
+	addNode(front, 4);
+	addNode(front, 17);
+	stutter(front);
+	printList(front);
+}
