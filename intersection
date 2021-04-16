@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+struct ListNode
+{
+	int data;
+	ListNode* next;
+	ListNode(int v) {
+		data = v;
+		next = NULL;
+	}
+};
+
+void addNode(ListNode*& front, int v)
+{
+	ListNode* n = new ListNode(v);
+	if (front == NULL) {
+		front = n;
+		return;
+	}
+	ListNode* x = front;
+	while (x->next != NULL) {
+		x = x->next;
+	}
+	x->next = n;
+}
+
+ListNode* intersection(ListNode* front1, ListNode* front2)
+{
+	ListNode* m = front1;
+	ListNode* n = front2;
+	while (m != nullptr) {
+		while (n != nullptr) {
+			if (n->data == m->data) {
+				return m;
+			}
+			n = n->next;
+		}
+		n = front2;
+		m = m->next;
+	}
+	return nullptr;
+}
+
+int main()
+{
+	ListNode* front1 = NULL;
+	addNode(front1, 1);
+	addNode(front1, 5);
+	addNode(front1, 4);
+	addNode(front1, 8);
+	addNode(front1, 3);
+	addNode(front1, 15);
+	ListNode* front2 = NULL;
+	addNode(front2, 2);
+	addNode(front2, 6);
+	addNode(front2, 8);
+	addNode(front2, 3);
+	addNode(front2, 15);
+	cout << intersection(front1, front2);
+}
