@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+struct ListNode
+{
+	int data;
+	ListNode* next;
+	ListNode(int v) {
+		data = v;
+		next = NULL;
+	}
+};
+
+void addNode(ListNode*& front, int v)
+{
+	ListNode* n = new ListNode(v);
+	if (front == NULL) {
+		front = n;
+		return;
+	}
+	ListNode* x = front;
+	while (x->next != NULL) {
+		x = x->next;
+	}
+	x->next = n;
+}
+
+int countDuplicates(ListNode* front)
+{
+	if (front == NULL) {
+		return 0;
+	}
+	int c = 0;
+	while (front->next != NULL) {
+		if (front->data == front->next->data) {
+			c++;
+		}
+		front = front->next;
+	}
+	return c;
+}
+
+int main()
+{
+	ListNode* front = NULL;
+	addNode(front, 1);
+	addNode(front, 1);
+	addNode(front, 1);
+	addNode(front, 3);
+	addNode(front, 3);
+	addNode(front, 6);
+	addNode(front, 9);
+	addNode(front, 15);
+	addNode(front, 15);
+	addNode(front, 23);
+	addNode(front, 23);
+	addNode(front, 23);
+	addNode(front, 40);
+	addNode(front, 40);
+	cout << countDuplicates(front);
+}
