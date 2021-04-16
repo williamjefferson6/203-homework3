@@ -24,15 +24,15 @@ void addNode(ListNode*& front, int v)
 	x->next = n;
 }
 
-void insertNode(ListNode* front, int x)
+void insertNode(ListNode* n, int x)
 {
-	if (front == NULL) {
+	if (n == NULL) {
 		return;
 	}
 	ListNode* y = new ListNode(x);
 	y->data = x;
-	y->next = front->next;
-	front->next = y;
+	y->next = n->next;
+	n->next = y;
 }
 
 void stutter(ListNode*& front)
