@@ -1,0 +1,80 @@
+OUTPUT
+front1 -> 2 -> 1 -> 7 -> 5 -> 8 -> 9 -> 10 -> 33 -> 66 -> 55 /
+front2 -> /
+
+
+
+
+#include <iostream>
+using namespace std;
+struct ListNode
+{
+	int data;
+	ListNode* next;
+	ListNode(int v) {
+		data = v;
+		next = NULL;
+	}
+};
+
+void addNode(ListNode*& front, int v)
+{
+	ListNode* n = new ListNode(v);
+	if (front == NULL) {
+		front = n;
+		return;
+	}
+	ListNode* x = front;
+	while (x->next != NULL) {
+		x = x->next;
+	}
+	x->next = n;
+}
+
+void linkedMystery(ListNode*& front1, ListNode*& front2)
+{
+	ListNode* curr1 = front1;
+	while (front2 != nullptr) {
+		if (curr1->next == nullptr) {
+			curr1->next = front2;
+			front2 = nullptr;
+		}
+		else if (front2->data < curr1->next->data) {
+			ListNode* temp2 = front2;
+			front2 = front2->next;
+			temp2->next = curr1->next;
+			curr1->next = temp2;
+		}
+		else {
+			curr1 = curr1->next;
+		}
+	}
+}
+
+void printList(ListNode* x)
+{
+	while (x != nullptr) {
+		cout << x->data << endl;
+		x = x->next;
+	}
+}
+
+int main()
+{
+	ListNode* front1 = NULL;
+	addNode(front1, 2);
+	addNode(front1, 7);
+	addNode(front1, 5);
+	addNode(front1, 33);
+	ListNode* front2 = NULL;
+	addNode(front2, 1);
+	addNode(front2, 10);
+	addNode(front2, 9);
+	addNode(front2, 8);
+	addNode(front2, 66);
+	addNode(front2, 55);
+	linkedMystery(front1, front2);
+	printList(front1);
+	cout << endl;
+	printList(front2);
+}
