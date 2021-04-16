@@ -1,0 +1,71 @@
+#include <iostream>
+using namespace std;
+struct ListNodeDouble
+{
+	double data;
+	ListNodeDouble* next;
+	ListNodeDouble(double v) {
+		data = v;
+		next = NULL;
+	}
+};
+
+void addNode(ListNodeDouble*& front, double v)
+{
+	ListNodeDouble* n = new ListNodeDouble(v);
+	if (front == NULL) {
+		front = n;
+		return;
+	}
+	ListNodeDouble* x = front;
+	while (x->next != NULL) {
+		x = x->next;
+	}
+	x->next = n;
+}
+
+void removeAllThreshold(ListNodeDouble*& front, double val, double r)
+{
+	ListNodeDouble* c = front;
+	ListNodeDouble* p = NULL;
+	double up = val + r;
+	double low = val - r;
+	while (c != nullptr) {
+		if (front->data <= up && front->data >= low) {
+			front = front->next;
+		}
+		else if (c->data <= up && c->data >= low) {
+			p->next = c->next;
+			c = p;
+		}
+		p = c;
+		c = c->next;
+	}
+}
+
+void printList(ListNodeDouble* x)
+{
+	while (x != nullptr) {
+		cout << x->data << endl;
+		x = x->next;
+	}
+}
+
+int main()
+{
+	ListNodeDouble* front = NULL;
+	addNode(front, 3.0);
+	addNode(front, 9.0);
+	addNode(front, 4.2);
+	addNode(front, 2.1);
+	addNode(front, 3.3);
+	addNode(front, 2.3);
+	addNode(front, 3.4);
+	addNode(front, 4.0);
+	addNode(front, 2.9);
+	addNode(front, 2.7);
+	addNode(front, 3.1);
+	addNode(front, 18.2);
+	removeAllThreshold(front, 3.0, 0.3);
+	printList(front);
+}
