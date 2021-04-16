@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+struct ListNode
+{
+	int data;
+	ListNode* next;
+	ListNode(int v) {
+		data = v;
+		next = NULL;
+	}
+};
+
+void addNode(ListNode*& front, int v)
+{
+	ListNode* n = new ListNode(v);
+	if (front == NULL) {
+		front = n;
+		return;
+	}
+	ListNode* x = front;
+	while (x->next != NULL) {
+		x = x->next;
+	}
+	x->next = n;
+}
+
+bool isSorted(ListNode* front)
+{
+	if (front == NULL) {
+		return true;
+	}
+	while (front->next != NULL) {
+		if (front->data > front->next->data) {
+			return false;
+		}
+		front = front->next;
+	}
+	return true;
+}
+
+int main()
+{
+	ListNode* front = NULL;
+	addNode(front, 1);
+	addNode(front, 4);
+	addNode(front, 5);
+	addNode(front, 9);
+	cout << isSorted(front);
+}
