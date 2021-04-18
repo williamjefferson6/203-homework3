@@ -1,0 +1,84 @@
+#include <iostream>
+using namespace std;
+struct ListNode
+{
+	int data;
+	ListNode* next;
+	ListNode(int v) {
+		data = v;
+		next = NULL;
+	}
+};
+
+void addNode(ListNode*& front, int v)
+{
+	ListNode* n = new ListNode(v);
+	if (front == NULL) {
+		front = n;
+		return;
+	}
+	ListNode* x = front;
+	while (x->next != NULL) {
+		x = x->next;
+	}
+	x->next = n;
+}
+
+void chopBothSides(ListNode*& front, int r)
+{
+	if (front = nullptr || k <= 0) {
+		return;
+	}
+	ListNode* n = front;
+	ListNode* x = front;
+	int c1 = 0, c2 = 1;
+	while (n != nullptr) {
+		c1++;
+		n = n->next;
+	}
+	if (2 * r > c1) {
+		throw 1;
+	}
+	if (2 * r == c1) {
+		front = nullptr;
+		return;
+	}
+	for (int i = 0; i < r; i++) {
+		x = front;
+		front = front->next;
+	}
+	delete x;
+	ListNode* y = front;
+	for (int i = 0; i < c1 - (2 * r) - 1; i++) {
+		y = y->next;
+	}
+	ListNode* z = y->next;
+	delete z;
+	y->next = nullptr;
+}
+
+void printList(ListNode* x)
+{
+	while (x != nullptr) {
+		cout << x->data << endl;
+		x = x->next;
+	}
+}
+
+int main()
+{
+	ListNode* front = NULL;
+	addNode(front, 10);
+	addNode(front, 20);
+	addNode(front, 30);
+	addNode(front, 40);
+	addNode(front, 50);
+	addNode(front, 60);
+	addNode(front, 70);
+	addNode(front, 80);
+	addNode(front, 90);
+	addNode(front, 100);
+	addNode(front, 110);
+	chopBothSides(front, 3);
+	printList(front);
+}
