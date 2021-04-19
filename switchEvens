@@ -1,0 +1,95 @@
+#include <iostream>
+using namespace std;
+struct ListNode
+{
+	int data;
+	ListNode* next;
+	ListNode(int v) {
+		data = v;
+		next = NULL;
+	}
+};
+
+void addNode(ListNode*& front, int v)
+{
+	ListNode* n = new ListNode(v);
+	if (front == NULL) {
+		front = n;
+		return;
+	}
+	ListNode* x = front;
+	while (x->next != NULL) {
+		x = x->next;
+	}
+	x->next = n;
+}
+
+void switchEvens(ListNode*& front1, ListNode*& front2)
+{
+    if (front1 == nullptr || front2 == nullptr)
+    {
+        return;
+    }
+    int c, c1 = 0, c2 = 0;
+    ListNode* m = front1;
+    ListNode* n = front2;
+    ListNode* h1 = front1;
+    ListNode* h2 = front2;
+    while (m != nullptr){
+        c1++;
+        m = m->next;
+    }
+    while (n != nullptr){
+        c2++;
+        n = n->next;
+    }
+    if (c1 > c2){
+        c = c2;
+    }
+    else{
+        c = c1;
+    }
+    for (int i = 0; i < c; ++i){
+        if ((h1->data) % 2 == 0 && (h2->data) % 2 == 0)
+        {
+            int x = h1->data;
+            h1->data = h2->data;
+            h2->data = x;
+        }
+        h1 = h1->next;
+        h2 = h2->next;
+    }
+}
+
+void printList(ListNode* x)
+{
+    while (x != nullptr) {
+        cout << x->data << endl;
+        x = x->next;
+    }
+}
+
+int main()
+{
+	ListNode* front1 = NULL;
+	addNode(front1, 2);
+	addNode(front1, 4);
+	addNode(front1, 3);
+	addNode(front1, 7);
+	addNode(front1, 8);
+	addNode(front1, 4);
+    addNode(front1, 6);
+    addNode(front1, 12);
+    addNode(front1, 22);
+    addNode(front1, 10);
+	ListNode* front2 = NULL;
+	addNode(front2, 66);
+	addNode(front2, 55);
+	addNode(front2, 16);
+	addNode(front2, 43);
+	addNode(front2, 22);
+    addNode(front2, 90);
+    addNode(front2, 39);
+    addNode(front2, 44);
+	switchEvens(front1, front2);
+}
