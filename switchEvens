@@ -78,18 +78,21 @@ int main()
 	addNode(front1, 7);
 	addNode(front1, 8);
 	addNode(front1, 4);
-    addNode(front1, 6);
-    addNode(front1, 12);
-    addNode(front1, 22);
-    addNode(front1, 10);
+    	addNode(front1, 6);
+   	addNode(front1, 12);
+   	addNode(front1, 22);
+    	addNode(front1, 10);
 	ListNode* front2 = NULL;
 	addNode(front2, 66);
 	addNode(front2, 55);
 	addNode(front2, 16);
 	addNode(front2, 43);
 	addNode(front2, 22);
-    addNode(front2, 90);
-    addNode(front2, 39);
-    addNode(front2, 44);
+    	addNode(front2, 90);
+    	addNode(front2, 39);
+    	addNode(front2, 44);
 	switchEvens(front1, front2);
+	printList(front1);
+	cout << endl;
+	printList(front2);
 }
