@@ -1,0 +1,65 @@
+#include <iostream>
+using namespace std;
+struct ListNode
+{
+	int data;
+	ListNode* next;
+	ListNode(int v) {
+		data = v;
+		next = NULL;
+	}
+};
+
+void addNode(ListNode*& front, int v)
+{
+	ListNode* n = new ListNode(v);
+	if (front == NULL) {
+		front = n;
+		return;
+	}
+	ListNode* x = front;
+	while (x->next != NULL) {
+		x = x->next;
+	}
+	x->next = n;
+}
+
+void switchPairsOfPairs(ListNode*& front) {
+	if (front && front->next && front->next->next && front->next->next->next) {
+		ListNode* n = front->next->next;
+		front->next->next = n->next->next; 
+		n->next->next = front; 
+		front = n;
+		n = n->next->next->next; 
+		while (n->next && n->next->next && n->next->next->next && n->next->next->next->next) {
+			ListNode* x = n->next->next->next; 
+			n->next->next->next = x->next->next; 
+			x->next->next = n->next;
+			n->next = x;
+			n = x->next->next->next; 
+		}
+	}
+}
+
+void printList(ListNode* x)
+{
+	while (x != nullptr) {
+		cout << x->data << endl;
+		x = x->next;
+	}
+}
+
+int main()
+{
+	ListNode* front = NULL;
+	addNode(front, 1);
+	addNode(front, 2);
+	addNode(front, 3);
+	addNode(front, 4);
+	addNode(front, 5);
+	addNode(front, 6);
+	addNode(front, 7);
+	addNode(front, 8);
+	switchPairsOfPairs(front);
+	printList(front);
+}
