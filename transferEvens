@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+struct ListNode
+{
+	int data;
+	ListNode* next;
+	ListNode(int v) {
+		data = v;
+		next = NULL;
+	}
+};
+
+void addNode(ListNode*& front, int v)
+{
+	ListNode* n = new ListNode(v);
+	if (front == NULL) {
+		front = n;
+		return;
+	}
+	ListNode* x = front;
+	while (x->next != NULL) {
+		x = x->next;
+	}
+	x->next = n;
+}
+
+ListNode* transferEvens(ListNode*& front)
+{
+	if (front == nullptr) {
+		return nullptr;
+	}
+	ListNode* h = front;
+	ListNode* n = front;
+	front = front->next;
+	if (front == nullptr) {
+		return h;
+	}
+	ListNode* x = h->next;
+	ListNode* y = front->next;
+	int c = 2;
+	while (y != nullptr) {
+		if (c % 2 == 0) {
+			n->next = y;
+			n = n->next;
+			x->next = n->next;
+			y = x;
+			x = x->next;
+		}
+		c++;
+		y = y->next;
+	}
+	n->next = nullptr;
+	return h;
+}
+
+void printList(ListNode* x)
+{
+	while (x != nullptr) {
+		cout << x->data << endl;
+		x = x->next;
+	}
+}
+
+int main()
+{
+	ListNode* front = NULL;
+	addNode(front, 3);
+	addNode(front, 1);
+	addNode(front, 4);
+	addNode(front, 15);
+	addNode(front, 9);
+	addNode(front, 2);
+	addNode(front, 6);
+	addNode(front, 5);
+	addNode(front, 35);
+	addNode(front, 89);
+	addNode(front, 66);
+	transferEvens(front);
+	printList(front);
+}
