@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std;
+struct ListNode
+{
+	int data;
+	ListNode* next;
+	ListNode(int v) {
+		data = v;
+		next = NULL;
+	}
+};
+
+void addNode(ListNode*& front, int v)
+{
+	ListNode* n = new ListNode(v);
+	if (front == NULL) {
+		front = n;
+		return;
+	}
+	ListNode* x = front;
+	while (x->next != NULL) {
+		x = x->next;
+	}
+	x->next = n;
+}
+
+void combineDuplicates(ListNode*& front)
+{
+	if (front == NULL)
+	{
+		return;
+	}
+	int sum = 0, c = 0;
+	ListNode* n = front;
+	ListNode* x = NULL;
+	while (n->next != nullptr) {
+		x = n;
+		if (n->data == n->next->data) {
+			sum += n->next->data;
+			while (n->data == n->next->data) {
+				sum += n->next->data;
+				n = n->next;
+				if (n->next == nullptr) {
+					x->data = sum;
+					x->next = nullptr;
+					return;
+				}
+			}
+			x->data = sum;
+			x->next = n->next;
+			sum = 0;
+		}
+		c++;
+		n = n->next;
+	}
+}
+
+void printList(ListNode* x)
+{
+	while (x != nullptr) {
+		cout << x->data << endl;
+		x = x->next;
+	}
+}
+
+int main()
+{
+	ListNode* front = NULL;
+	addNode(front, 3);
+	addNode(front, 3);
+	addNode(front, 2);
+	addNode(front, 4);
+	addNode(front, 4);
+	addNode(front, 4);
+	addNode(front, -1);
+	addNode(front, -1);
+	addNode(front, 4);
+	addNode(front, 12);
+	addNode(front, 12);
+	addNode(front, 12);
+	addNode(front, 12);
+	addNode(front, 48);
+	addNode(front, -5);
+	addNode(front, -5);
+	combineDuplicates(front);
+	printList(front);
+}
