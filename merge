@@ -1,0 +1,75 @@
+#include <iostream>
+using namespace std;
+struct ListNode
+{
+    int data;
+    ListNode* next;
+    ListNode(int v) {
+        data = v;
+        next = NULL;
+    }
+};
+
+void addNode(ListNode*& front, int v)
+{
+    ListNode* n = new ListNode(v);
+    if (front == NULL) {
+        front = n;
+        return;
+    }
+    ListNode* x = front;
+    while (x->next != NULL) {
+        x = x->next;
+    }
+    x->next = n;
+}
+
+ListNode* merge(ListNode*& front1, ListNode*& front2)
+{
+    if (front1 == nullptr) {
+        return front2;
+    }
+    else if (front2 == nullptr) {
+        return front1;
+    }
+    ListNode* m = front1;
+    ListNode* n = front2;
+    ListNode* x = NULL;
+    ListNode* y = NULL;
+    if (m->data < n->data) {
+        x = m;
+        y = m->next;
+        x->next = merge(y, n);
+    }
+    else {
+        x = n;
+        y = n->next;
+        x->next = merge(y, m);
+    }
+    return x;
+}
+
+void printList(ListNode* x)
+{
+    while (x != nullptr) {
+        cout << x->data << endl;
+        x = x->next;
+    }
+}
+
+int main()
+{
+    ListNode* front1 = NULL;
+    addNode(front1, 1);
+    addNode(front1, 4);
+    addNode(front1, 5);
+    addNode(front1, 10);
+    addNode(front1, 11);
+    ListNode* front2 = NULL;
+    addNode(front2, 2);
+    addNode(front2, 4);
+    addNode(front2, 6);
+    addNode(front2, 7);
+    addNode(front2, 8);
+    cout << merge(front1, front2);
+}
